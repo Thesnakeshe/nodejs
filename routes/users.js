@@ -111,7 +111,7 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 router.post('/upload', upload.single('abc'), function (req, res, next) {
-  console.log(req)
+  // console.log(req)
   res.json({
     status: "success",
     file: req.file
@@ -119,7 +119,7 @@ router.post('/upload', upload.single('abc'), function (req, res, next) {
 });
 
 router.post('/autoLogin', async (req, res, next) => {
-  console.log(req.headers)
+  // console.log(req.headers)
   res.send({
     status: token.checkToken(req.headers.token)
   })

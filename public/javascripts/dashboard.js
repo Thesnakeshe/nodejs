@@ -1,24 +1,24 @@
 $(() => {
     //在进去之前先判断token是否有效，有效则进去，无效则退出
-    let getToken = (name, currentPage, qty) => {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                type: "POST",
-                headers: {
-                    token: localStorage.getItem("deng")
-                },
-                url: "http://localhost:3000/users/autoLogin",
-                data: {
-                    name,
-                    currentPage,
-                    qty
-                },
-                success(data) {
-                    resolve(data)
-                }
-            })
-        })
-    }
+    // let getToken = (name, currentPage, qty) => {
+    //     return new Promise((resolve, reject) => {
+    //         $.ajax({
+    //             type: "POST",
+    //             headers: {
+    //                 token: localStorage.getItem("deng")
+    //             },
+    //             url: "http://localhost:3000/users/autoLogin",
+    //             data: {
+    //                 name,
+    //                 currentPage,
+    //                 qty
+    //             },
+    //             success(data) {
+    //                 resolve(data)
+    //             }
+    //         })
+    //     })
+    // }
     //分页的在进去页面之前将数据库所有的数据渲染在页面上
     // let getUserList = (name, currentPage, qty) => {
     //     return new Promise((resolve, reject) => {
@@ -105,6 +105,32 @@ $(() => {
                         }
                     })
                 })
+            },
+            logins : (date) => {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:3000/setting/findNews",
+                        data: date,
+                        success(res) {
+                            resolve(res)
+                        }
+                    })
+                })
+            },
+            login : (name) => {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:3000/setting/findUser",
+                        data: {
+                            name
+                        },
+                        success(data) {
+                            resolve(data)
+                        }
+                    })
+                })
             }
         }
         let wites = await fn.getToken();
@@ -121,7 +147,7 @@ $(() => {
             }
             $(".kk2").html($currentPage);
             let qty = 5;
-            let data = await getUserList(name, $currentPage, qty);
+            let data = await fn.getUserList(name, $currentPage, qty);
             let dd = JSON.parse(data);
             let html = dd.ss.map((item, index) => {
                 return `
@@ -148,7 +174,7 @@ $(() => {
             }
             $(".kk2").html($currentPage);
             let qty = 5;
-            let data = await getUserList(name, $currentPage, qty);
+            let data = await fn.getUserList(name, $currentPage, qty);
             let dd = JSON.parse(data);
             let html = dd.ss.map((item, index) => {
                 return `
@@ -164,82 +190,51 @@ $(() => {
             $("#list").html(html);
             $(".kk2").html(dd.cc);
         });
+        //======================================================================================================
+        let signIn = $("#seach");
+        signIn.click(async () => {
+            let name = $("#seachText").val();
+            console.log(name);
+            let data = await fn.login(name);
+            let html = data.map((item, index) => {
+                return `
+                    <tr>
+                        <td>${item._id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.age}</td>
+                        <td>${item.skill}</td>
+                        <td>${item.description}</td>
+                    </tr>            
+                `
+            }).join("");
+            $("#list").html(html);
+            $("#seachText").val("");
+            $("h6").html("");
+        })
+
+
+        //给一个复选框可以通过复选框的类型搜索一样的东西
+        $("#seach2").click(async () => {
+            let date = {}
+            hello = $("#leixing").val();
+            date[hello] = $("#cha").val();
+            console.log(date);
+            let data = await fn.logins(date);
+            // console.log(data);
+            let html = data.map((item, index) => {
+                return `
+                    <tr>
+                        <td>${item._id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.age}</td>
+                        <td>${item.skill}</td>
+                        <td>${item.description}</td>
+                    </tr>            
+                `
+            }).join("");
+            $("#list").html(html);
+            $("#cha").val("");
+            $("h6").html("");
+        })
     })();
-    //======================================================================================================
-    let signIn = $("#seach");
-    let login = (name) => {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/setting/findUser",
-                data: {
-                    name
-                },
-                success(data) {
-                    resolve(data)
-                }
-            })
-        })
-    }
-    signIn.click(async () => {
-        let name = $("#seachText").val();
-        console.log(name);
-        let data = await login(name);
-        let html = data.map((item, index) => {
-            return `
-                <tr>
-                    <td>${item._id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.age}</td>
-                    <td>${item.skill}</td>
-                    <td>${item.description}</td>
-                </tr>            
-            `
-        }).join("");
-        $("#list").html(html);
-        $("h6").html("");
-    })
-
-
-    //给一个复选框可以通过复选框的类型搜索一样的东西
-    let logins = (date) => {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/setting/findNews",
-                data: date,
-                success(res) {
-                    resolve(res)
-                }
-            })
-        })
-    }
-    $("#seach2").click(async () => {
-        let date = {}
-        hello = $("#leixing").val();
-        date[hello] = $("#cha").val();
-        console.log(date);
-        let data = await logins(date);
-        // console.log(data);
-        let html = data.map((item, index) => {
-            return `
-                <tr>
-                    <td>${item._id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.age}</td>
-                    <td>${item.skill}</td>
-                    <td>${item.description}</td>
-                </tr>            
-            `
-        }).join("");
-        $("#list").html(html);
-        $("h6").html("");
-    })
-
-
-
-
-
-
-
 })

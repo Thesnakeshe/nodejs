@@ -62,17 +62,18 @@ router.post('/shan', async (req, res, next) => {
 });
 router.post('/update', async (req, res, next) => {
     // console.log(name,names,age,skill,description,password);
-    console.log(666);
+    // console.log(666);
     let {
         name,
         names,
         age,
         skill,
         description,
-        password
+        password,
+        imgs
     } = req.body
-        console.log(name,names,age,skill,description,password);
-        console.log(666);
+        console.log(imgs);
+        // console.log(666);
     let data = await update(`xiang`, {
         name:name
     },{
@@ -80,7 +81,8 @@ router.post('/update', async (req, res, next) => {
         age:age,
         skill:skill,
         description:description,
-        password:password
+        password:password,
+        imgs:imgs
     })
     res.send(data);
 });
@@ -99,7 +101,7 @@ router.post('/login', async (req, res, next) => {
         tokes : token.createToken({
             inputEmail,
             inputPassword
-        },15)
+        },100)
     });
   }else {
     res.send("fail");
