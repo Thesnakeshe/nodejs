@@ -22,9 +22,8 @@ $(() => {
         let data = await logins(inputEmail, inputPassword);
         console.log(data);
         if (data === 'fail') {
-            alert("登录失败");
+            alert("用户名或者密码错误");
         } else {
-            alert(data.tokes);
             localStorage.setItem("deng",data.tokes);
             location.href = "dashboard.html";
             token.checkToken("deng");
