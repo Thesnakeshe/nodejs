@@ -18,16 +18,20 @@ $(() => {
     signIn.click(async () => {
         let inputEmail = $("#inputEmail").val();
         let inputPassword = $("#inputPassword").val();
-        console.log(inputEmail, inputPassword);
         let data = await logins(inputEmail, inputPassword);
-        console.log(data);
-        if (data === 'fail') {
-            alert("用户名或者密码错误");
-        } else {
-            localStorage.setItem("deng",data.tokes);
-            location.href = "dashboard.html";
-            token.checkToken("deng");
+        let fn = {
+            success() {
+                localStorage.setItem("deng", data.tokes)
+                location.href = "dashboard.html"
+            },
+            fail() {
+                alert("用户名或者密码错误");
+            },
+            other(){
+                alert("该用户名不存在");
+            }
         }
+        fn[data.status]();
     })
 })
 

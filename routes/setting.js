@@ -54,7 +54,6 @@ router.post('/shan', async (req, res, next) => {
         name
     } = req.body
     // console.log(name,age,skill,description,password);
-    console.log(666);
     let data = await del(`xiang`, {
         name
     })
@@ -72,7 +71,7 @@ router.post('/update', async (req, res, next) => {
         password,
         imgs
     } = req.body
-        console.log(imgs);
+        // console.log(imgs);
         // console.log(666);
     let data = await update(`xiang`, {
         name:name
@@ -95,17 +94,25 @@ router.post('/login', async (req, res, next) => {
   let data = await finds(`xiang`, {
     name: inputEmail
   })
-  console.log(token);
-  if (data[0].password === inputPassword) {
-    res.send({
-        tokes : token.createToken({
-            inputEmail,
-            inputPassword
-        },100)
-    });
-  }else {
-    res.send("fail");
-  }
+    try {
+        if (data[0].password == inputPassword) {
+            res.send({
+                status: "success",
+                tokes : token.createToken({
+                    inputEmail,
+                    inputPassword
+                },100)
+            });
+        } else {
+                res.send({
+                status: "fail",
+                });
+        }
+    } catch{
+        res.send({ status: "other" });
+
+    }
+  
 });
 
 //新增的查找方法呀
@@ -113,7 +120,7 @@ router.post('/findNews', async (req, res, next) => {
     if(req.body._id){
         req.body= ObjectId(req.body._id);
     }
-    console.log(req.body);
+    // console.log(req.body);
     let data = await findz(`xiang`,req.body);
     res.send(data);
 });
@@ -135,16 +142,16 @@ router.post('/findFen', async (req, res, next) => {
     let len = shuzu.length;
     currentPage? currentPage:1;
     qty? qty:5;
-    console.log(currentPage, qty);
+    // console.log(currentPage, qty);
     let datas =shuzu.slice((currentPage-1)*qty,qty*currentPage);
-    console.log(datas);
+    // console.log(datas);
     let ras = {
         ss : datas,
         aa : len,
         qq : qty,
         cc : currentPage
     }
-    console.log(ras);
+    // console.log(ras);
     res.send(JSON.stringify(ras));
 });
 
