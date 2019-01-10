@@ -116,7 +116,11 @@ router.post('/findNews', async (req, res, next) => {
     res.send(data);
 });
 
-//新增查找的可分页
+//新增查找的可分页git push origin master 推  常见错误...'git pull...') before pushing again.
+// 解决：git pull origin master拉取  常见错误fatal: refusing to merge unrelated histories
+// 解决：git pull origin master --allow-unrelated-histories
+// Shift+:退出
+// q：结束
 router.post('/findFen', async (req, res, next) => {
     let {
         name,
