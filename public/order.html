@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="./stylesheets/dashboard.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Sign out</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                全部显示 <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="order.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-file">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                添加
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="find.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-shopping-cart">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                改数据
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="deletes.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-users">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                删除
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Name</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Password</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Age</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Age" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">Skill</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Skill" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Description</label>
+                        <input type="text" class="form-control" id="inputCity" required>
+                    </div><br>
+                        <img id="img" src="" alt="上传图片" style="width:200px;height:200px;" />
+                        <input class="form-control" type="file" id="file" name="abc"/>
+                        
+    <script>
+        var fileNode = document.getElementById("file");
+        fileNode.onchange = function () {
+            console.log(fileNode.files)
+            var xmlhttp = new XMLHttpRequest();
+            //设置回调，当请求的状态发生变化时，就会被调用  
+            xmlhttp.onreadystatechange = function () {
+                //上传成功，返回的文件名，设置到父节点的背景中  
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log(JSON.parse(xmlhttp.responseText))
+                    let data = JSON.parse(xmlhttp.responseText);
+                    document.getElementById("img").src = `http://10.3.143.15:3000/${data.file.filename}`
+                }
+            }
+            //构造form数据 你可以用它传输文件流 它是基于form-data的传输方案
+            var data = new FormData();
+            // 单图上传，默认选第一张，如果是多图的话，就要for循环遍历fileNode.files数组，并全部append到data里面传输
+            data.append("abc",fileNode.files[0])
+            xmlhttp.open("post", "http://10.3.143.15:3000/users/upload", true);
+			//不要缓存  
+			//xmlhttp.setRequestHeader("If-Modified-Since", "0");  
+			//提交请求  
+			xmlhttp.send(data);
+			//清除掉，否则下一次选择同样的文件就进入不到onchange函数中了  
+			fileNode.value = null;
+        }
+    </script>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Check me out
+                        </label>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="signIn">Sign in</button>
+            </main>
+        </div>
+    </div>
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/order.js"></script>
+</body>
+
+</html>
