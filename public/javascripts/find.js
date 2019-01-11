@@ -7,6 +7,7 @@ $(() => {
                 let html = data.map((item,index)=>{
                     return `
                         <tr>
+                            <td><img style="width:30px;height:30px;" src="${item.imgs}"/></td>
                             <td>${item._id}</td>
                             <td>${item.name}</td>
                             <td>${item.age}</td>
